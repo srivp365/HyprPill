@@ -16,7 +16,7 @@ Rectangle {
     property bool isExpanded: mouse.hovered
     
     width: isExpanded ? 500 : 120
-    height: isExpanded ? 320 : 40
+    height: isExpanded ? 500 : 40
     
     radius: isExpanded ? 25 : height / 2 
     color: "#000000" 

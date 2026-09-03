@@ -1,7 +1,7 @@
 // shell.qml
 import QtQuick
 import Quickshell
-import "components" // Tells QML to look in the components folder
+import "components" 
 
 PanelWindow {
     id: barWindow
@@ -22,8 +22,14 @@ PanelWindow {
     height: 500 
     color: "transparent"
 
+    mask: Region {
+        item: myPill
+    }
+
     // Call our component!
     PillBar {
+        id: myPill 
+        
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
     }
