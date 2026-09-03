@@ -3,42 +3,39 @@ import QtQuick
 
 Rectangle {
     id: pillBackground
+
+    HoverHandler {
+        id: mouse
+        acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
+    }
+
+
+    property bool isExpanded: mouse.hovered
     
-    // Default unexpanded state
-    width: 200
-    height: 40
+    width: isExpanded ? 320 : 125
+    height: isExpanded ? 240 : 40
     
-    // Keep it perfectly rounded dynamically
-    radius: height / 2 
-    color: "#aa000000" 
+    radius: isExpanded ? 25 : height / 2 
+    color: "#000000" 
     
-    // The animation rules
+    // animation magic, where Behaviour intercepts changes in width height etc. and smooths it out (waowwww that's pretty nice)
     Behavior on width { NumberAnimation { duration: 300; easing.type: Easing.OutExpo } }
     Behavior on height { NumberAnimation { duration: 300; easing.type: Easing.OutExpo } }
     Behavior on radius { NumberAnimation { duration: 300; easing.type: Easing.OutExpo } }
     
-    // 1. Load the Doto font (adjust the filename to match exactly what you downloaded!)
-    FontLoader {
-        id: dotoFont
-        source: "../assets/fonts/Doto-VariableFont_ROND,wght.ttf"
-    }
 
     FontLoader {
         id: msPrint
         source: "../assets/fonts/MatrixSansPrint-Regular.otf"
     }
 
+    
+
     // The content
     Row {
         anchors.centerIn: parent
         spacing: 20
         
-        Text { 
-            text: "🔋 100%"
-            color: "#cdd6f4"
-            font.pixelSize: 14
-            font.family: msPrint.font.family
-        }
         Text { 
             text: "1:00 PM"
             color: "#cdd6f4"
