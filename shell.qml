@@ -18,8 +18,8 @@ PanelWindow {
     exclusiveZone: 30 
 
     // The invisible canvas (big enough for the expanded control center)
-    width: 400
-    height: 400 
+    width: 500
+    height: 500 
     color: "transparent"
 
     // Call our component!
