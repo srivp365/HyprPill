@@ -10,7 +10,9 @@ Rectangle {
         acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
     }
 
-
+    
+    property string time: "Loading..."
+    property string date: "Loading..."
     property bool isExpanded: mouse.hovered
     
     width: isExpanded ? 500 : 120
@@ -39,6 +41,7 @@ Rectangle {
         
         opacity: isExpanded ? 0 : 1
         visible: opacity > 0
+        
         Behavior on opacity { NumberAnimation { duration: 200 } }
 
         
@@ -46,7 +49,7 @@ Rectangle {
             id: clockText
 
             // fallback
-            text: "Loading..." 
+            text: pillBackground.time 
             color: "#cdd6f4"
             font.pixelSize: 14
             font.family: msPrint.font.family
@@ -59,12 +62,16 @@ Rectangle {
                 triggeredOnStart: true
 
                 onTriggered: {
-                    clockText.text = Qt.formatTime(new Date(), "hh:mm A")
+                    let now = new Date()
+                    pillBackground.time = Qt.formatTime(now, "hh:mm A")
+                    let date = now.toDateString()
+                    pillBackground.date = Qt.formatDate(now, "MMM d, yyyy")
                 }
             }
         } 
     }
 
+    // the control center
     Item {
         id: controlCenterPanel
         anchors.fill: parent
@@ -83,28 +90,29 @@ Rectangle {
                 height: 60
                 radius: 12
                 color: "#000000"
+                Column {
+                    Text { 
+                        id: clockTextCC
 
-                Text { 
-                    id: clockTextCC
-    
-                    // fallback
-                    text: "Loading..." 
-                    color: "#cdd6f4"
-                    font.pixelSize: 24
-                    font.family: msPrint.font.family
-    
-    
-                    Timer {
-                        interval: 1000
-                        running: true
-                        repeat: true
-                        triggeredOnStart: true
-    
-                        onTriggered: {
-                            clockTextCC.text = Qt.formatTime(new Date(), "hh:mm A")
-                        }
+                        // fallback
+                        text: pillBackground.time 
+                        color: "#cdd6f4"
+                        font.pixelSize: 24
+                        font.family: msPrint.font.family
+                    
                     }
-                } 
+                    Text { 
+                        id: dateTextCC
+
+                        // fallback
+                        text: pillBackground.date 
+                        color: '#a9cdd6f4'
+                        font.pixelSize: 14
+                        font.family: msPrint.font.family
+                    
+                    }
+                }
+                 
             }
         }
 
