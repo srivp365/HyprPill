@@ -1,6 +1,8 @@
 // components/PillBar.qml
 import QtQuick
 import Quickshell.Io
+import QtQuick.Layouts
+import Quickshell
 
 Rectangle {
     id: pillBackground
@@ -13,6 +15,7 @@ Rectangle {
     
     property string time: "Loading..."
     property string date: "Loading..."
+    property string username: Quickshell.env("USER") ?? "unknown"
     property bool isExpanded: mouse.hovered
     
     width: isExpanded ? 500 : 120
@@ -42,7 +45,7 @@ Rectangle {
         opacity: isExpanded ? 0 : 1
         visible: opacity > 0
         
-        Behavior on opacity { NumberAnimation { duration: 200 } }
+        Behavior on opacity { NumberAnimation { duration: 50 } }
 
         
         Text { 
@@ -79,51 +82,17 @@ Rectangle {
 
         opacity: isExpanded ? 1 : 0
         visible: opacity > 0
-        Behavior on opacity { NumberAnimation { duration: 200 } }
+        Behavior on opacity { NumberAnimation { duration: isExpanded ? 50 : 200 } }
 
         Column {
             anchors.fill: parent
             spacing: 15
 
-            Rectangle {
-                width: parent.width
-                height: 60
-                radius: 12
-                color: "#000000"
-                Column {
-                    Text { 
-                        id: clockTextCC
-
-                        // fallback
-                        text: pillBackground.time 
-                        color: "#cdd6f4"
-                        font.pixelSize: 24
-                        font.family: msPrint.font.family
-                    
-                    }
-                    Text { 
-                        id: dateTextCC
-
-                        // fallback
-                        text: pillBackground.date 
-                        color: '#a9cdd6f4'
-                        font.pixelSize: 14
-                        font.family: msPrint.font.family
-                    
-                    }
-                }
-                 
-            }
+            HeaderCard {}
+            
         }
 
 
     }
-
-    
+ 
 }
-
-
-
-
-
-

@@ -13,11 +13,9 @@ PanelWindow {
         right: false
     }
 
-    // Wayland/Hyprland positioning
     margins { top: 10 }
     exclusiveZone: 30 
 
-    // The invisible canvas (big enough for the expanded control center)
     width: 500
     height: 500 
     color: "transparent"
