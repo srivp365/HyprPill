@@ -7,9 +7,7 @@ RowLayout {
     height: 55
     spacing: 10
 
-    // ==========================================
-    // 1. LOCK BUTTON
-    // ==========================================
+    // sleep button
     Rectangle {
         id: lockCard
         Layout.fillWidth: true 
@@ -20,29 +18,19 @@ RowLayout {
         property color baseColor: "#8a8a90"
         property color armedColor: "#ffb454" 
         
-        color: isArmed ? Qt.rgba(armedColor.r, armedColor.g, armedColor.b, 0.15) : "#000000"
-        border.color: isArmed ? armedColor : "#1F1F1F"
+        color: (isArmed || mouse1.containsMouse) ? Qt.rgba(armedColor.r, armedColor.g, armedColor.b, 0.15) : Qt.rgba(armedColor.r, armedColor.g, armedColor.b, 0.0)
+        border.color: (isArmed || mouse1.containsMouse) ? armedColor : "#1F1F1F"
         
         Behavior on color { ColorAnimation { duration: 250 } }
         Behavior on border.color { ColorAnimation { duration: 250 } }
 
-        Process {
-            id: lockProcess
-            command: ["systemctl", "suspend"]
-        }
-
-        Timer {
-            id: lockTimer
-            interval: 2200
-            onTriggered: lockCard.isArmed = false
-        }
+        Process { id: lockProcess; command: ["systemctl", "suspend"] }
+        Timer { id: lockTimer; interval: 2200; onTriggered: lockCard.isArmed = false }
 
         Rectangle {
             id: lockPulse
-            anchors.centerIn: parent
-            width: parent.width; height: parent.height
-            radius: 16; color: "transparent"
-            border.color: lockCard.armedColor; border.width: 2
+            anchors.centerIn: parent; width: parent.width; height: parent.height
+            radius: 16; color: "transparent"; border.color: lockCard.armedColor; border.width: 2
             visible: lockCard.isArmed; opacity: 0
 
             SequentialAnimation {
@@ -56,7 +44,8 @@ RowLayout {
         }
 
         MouseArea {
-            anchors.fill: parent; cursorShape: Qt.PointingHandCursor
+            id: mouse1
+            anchors.fill: parent; cursorShape: Qt.PointingHandCursor; hoverEnabled: true
             onClicked: {
                 if (lockCard.isArmed) {
                     lockProcess.running = true; lockCard.isArmed = false; lockTimer.stop()
@@ -69,22 +58,20 @@ RowLayout {
         Column {
             anchors.centerIn: parent; spacing: 4 
             Text {
-                text: ""; color: lockCard.isArmed ? lockCard.armedColor : lockCard.baseColor
+                text: ""; color: (lockCard.isArmed || mouse1.containsMouse) ? lockCard.armedColor : lockCard.baseColor
                 font.family: "Symbols Nerd Font"; font.pixelSize: 14; anchors.horizontalCenter: parent.horizontalCenter 
                 Behavior on color { ColorAnimation { duration: 250 } }
             }
             Text {
                 text: lockCard.isArmed ? "Confirm?" : "Sleep"
-                color: lockCard.isArmed ? lockCard.armedColor : lockCard.baseColor
+                color: (lockCard.isArmed || mouse1.containsMouse) ? lockCard.armedColor : lockCard.baseColor
                 font.family: martianMono.font.family; font.pixelSize: 10; anchors.horizontalCenter: parent.horizontalCenter 
                 Behavior on color { ColorAnimation { duration: 250 } }
             }
         }
     }
 
-    // ==========================================
-    // 2. LOGOUT BUTTON
-    // ==========================================
+    // logout button
     Rectangle {
         id: logoutCard
         Layout.fillWidth: true 
@@ -95,30 +82,19 @@ RowLayout {
         property color baseColor: "#8a8a90"
         property color armedColor: "#5b9dff" 
         
-        color: isArmed ? Qt.rgba(armedColor.r, armedColor.g, armedColor.b, 0.15) : "#000000"
-        border.color: isArmed ? armedColor : "#1F1F1F"
+        color: (isArmed || mouse2.containsMouse) ? Qt.rgba(armedColor.r, armedColor.g, armedColor.b, 0.15) : Qt.rgba(armedColor.r, armedColor.g, armedColor.b, 0.0)
+        border.color: (isArmed || mouse2.containsMouse) ? armedColor : "#1F1F1F"
         
         Behavior on color { ColorAnimation { duration: 250 } }
         Behavior on border.color { ColorAnimation { duration: 250 } }
 
-        Process {
-            id: logoutProcess
-            // Exits Hyprland directly
-            command: ["hyprctl", "dispatch", "exit"] 
-        }
-
-        Timer {
-            id: logoutTimer
-            interval: 2200
-            onTriggered: logoutCard.isArmed = false
-        }
+        Process { id: logoutProcess; command: ["hyprctl", "dispatch", "exit"] }
+        Timer { id: logoutTimer; interval: 2200; onTriggered: logoutCard.isArmed = false }
 
         Rectangle {
             id: logoutPulse
-            anchors.centerIn: parent
-            width: parent.width; height: parent.height
-            radius: 16; color: "transparent"
-            border.color: logoutCard.armedColor; border.width: 2
+            anchors.centerIn: parent; width: parent.width; height: parent.height
+            radius: 16; color: "transparent"; border.color: logoutCard.armedColor; border.width: 2
             visible: logoutCard.isArmed; opacity: 0
 
             SequentialAnimation {
@@ -132,7 +108,8 @@ RowLayout {
         }
 
         MouseArea {
-            anchors.fill: parent; cursorShape: Qt.PointingHandCursor
+            id: mouse2
+            anchors.fill: parent; cursorShape: Qt.PointingHandCursor; hoverEnabled: true
             onClicked: {
                 if (logoutCard.isArmed) {
                     logoutProcess.running = true; logoutCard.isArmed = false; logoutTimer.stop()
@@ -145,22 +122,20 @@ RowLayout {
         Column {
             anchors.centerIn: parent; spacing: 4 
             Text {
-                text: "󰍃"; color: logoutCard.isArmed ? logoutCard.armedColor : logoutCard.baseColor
+                text: "󰍃"; color: (logoutCard.isArmed || mouse2.containsMouse) ? logoutCard.armedColor : logoutCard.baseColor
                 font.family: "Symbols Nerd Font"; font.pixelSize: 14; anchors.horizontalCenter: parent.horizontalCenter 
                 Behavior on color { ColorAnimation { duration: 250 } }
             }
             Text {
                 text: logoutCard.isArmed ? "Confirm?" : "Logout"
-                color: logoutCard.isArmed ? logoutCard.armedColor : logoutCard.baseColor
+                color: (logoutCard.isArmed || mouse2.containsMouse) ? logoutCard.armedColor : logoutCard.baseColor
                 font.family: martianMono.font.family; font.pixelSize: 10; anchors.horizontalCenter: parent.horizontalCenter 
                 Behavior on color { ColorAnimation { duration: 250 } }
             }
         }
     }
 
-    // ==========================================
-    // 3. RESTART BUTTON
-    // ==========================================
+    // restart button
     Rectangle {
         id: restartCard
         Layout.fillWidth: true 
@@ -171,29 +146,19 @@ RowLayout {
         property color baseColor: "#8a8a90"
         property color armedColor: "#4ade80" 
         
-        color: isArmed ? Qt.rgba(armedColor.r, armedColor.g, armedColor.b, 0.15) : "#000000"
-        border.color: isArmed ? armedColor : "#1F1F1F"
+        color: (isArmed || mouse3.containsMouse) ? Qt.rgba(armedColor.r, armedColor.g, armedColor.b, 0.15) : Qt.rgba(armedColor.r, armedColor.g, armedColor.b, 0.0)
+        border.color: (isArmed || mouse3.containsMouse) ? armedColor : "#1F1F1F"
         
         Behavior on color { ColorAnimation { duration: 250 } }
         Behavior on border.color { ColorAnimation { duration: 250 } }
 
-        Process {
-            id: restartProcess
-            command: ["systemctl", "reboot"] 
-        }
-
-        Timer {
-            id: restartTimer
-            interval: 2200
-            onTriggered: restartCard.isArmed = false
-        }
+        Process { id: restartProcess; command: ["systemctl", "reboot"] }
+        Timer { id: restartTimer; interval: 2200; onTriggered: restartCard.isArmed = false }
 
         Rectangle {
             id: restartPulse
-            anchors.centerIn: parent
-            width: parent.width; height: parent.height
-            radius: 16; color: "transparent"
-            border.color: restartCard.armedColor; border.width: 2
+            anchors.centerIn: parent; width: parent.width; height: parent.height
+            radius: 16; color: "transparent"; border.color: restartCard.armedColor; border.width: 2
             visible: restartCard.isArmed; opacity: 0
 
             SequentialAnimation {
@@ -207,7 +172,8 @@ RowLayout {
         }
 
         MouseArea {
-            anchors.fill: parent; cursorShape: Qt.PointingHandCursor
+            id: mouse3
+            anchors.fill: parent; cursorShape: Qt.PointingHandCursor; hoverEnabled: true
             onClicked: {
                 if (restartCard.isArmed) {
                     restartProcess.running = true; restartCard.isArmed = false; restartTimer.stop()
@@ -220,22 +186,21 @@ RowLayout {
         Column {
             anchors.centerIn: parent; spacing: 4 
             Text {
-                text: ""; color: restartCard.isArmed ? restartCard.armedColor : restartCard.baseColor
+                text: ""; color: (restartCard.isArmed || mouse3.containsMouse) ? restartCard.armedColor : restartCard.baseColor
                 font.family: "Symbols Nerd Font"; font.pixelSize: 14; anchors.horizontalCenter: parent.horizontalCenter 
                 Behavior on color { ColorAnimation { duration: 250 } }
             }
             Text {
                 text: restartCard.isArmed ? "Confirm?" : "Restart"
-                color: restartCard.isArmed ? restartCard.armedColor : restartCard.baseColor
+                color: (restartCard.isArmed || mouse3.containsMouse) ? restartCard.armedColor : restartCard.baseColor
                 font.family: martianMono.font.family; font.pixelSize: 10; anchors.horizontalCenter: parent.horizontalCenter 
                 Behavior on color { ColorAnimation { duration: 250 } }
             }
         }
     }
 
-    // ==========================================
-    // 4. SHUTDOWN BUTTON
-    // ==========================================
+
+    // shutdown button
     Rectangle {
         id: shutdownCard
         Layout.fillWidth: true 
@@ -246,29 +211,19 @@ RowLayout {
         property color baseColor: "#8a8a90"
         property color armedColor: "#f75f5f" 
         
-        color: isArmed ? Qt.rgba(armedColor.r, armedColor.g, armedColor.b, 0.15) : "#000000"
-        border.color: isArmed ? armedColor : "#1F1F1F"
+        color: (isArmed || mouse4.containsMouse) ? Qt.rgba(armedColor.r, armedColor.g, armedColor.b, 0.15) : Qt.rgba(armedColor.r, armedColor.g, armedColor.b, 0.0)
+        border.color: (isArmed || mouse4.containsMouse) ? armedColor : "#1F1F1F"
         
         Behavior on color { ColorAnimation { duration: 250 } }
         Behavior on border.color { ColorAnimation { duration: 250 } }
 
-        Process {
-            id: shutdownProcess
-            command: ["systemctl", "poweroff"] 
-        }
-
-        Timer {
-            id: shutdownTimer
-            interval: 2200
-            onTriggered: shutdownCard.isArmed = false
-        }
+        Process { id: shutdownProcess; command: ["systemctl", "poweroff"] }
+        Timer { id: shutdownTimer; interval: 2200; onTriggered: shutdownCard.isArmed = false }
 
         Rectangle {
             id: shutdownPulse
-            anchors.centerIn: parent
-            width: parent.width; height: parent.height
-            radius: 16; color: "transparent"
-            border.color: shutdownCard.armedColor; border.width: 2
+            anchors.centerIn: parent; width: parent.width; height: parent.height
+            radius: 16; color: "transparent"; border.color: shutdownCard.armedColor; border.width: 2
             visible: shutdownCard.isArmed; opacity: 0
 
             SequentialAnimation {
@@ -282,7 +237,8 @@ RowLayout {
         }
 
         MouseArea {
-            anchors.fill: parent; cursorShape: Qt.PointingHandCursor
+            id: mouse4
+            anchors.fill: parent; cursorShape: Qt.PointingHandCursor; hoverEnabled: true
             onClicked: {
                 if (shutdownCard.isArmed) {
                     shutdownProcess.running = true; shutdownCard.isArmed = false; shutdownTimer.stop()
@@ -295,13 +251,13 @@ RowLayout {
         Column {
             anchors.centerIn: parent; spacing: 4 
             Text {
-                text: "⏻"; color: shutdownCard.isArmed ? shutdownCard.armedColor : shutdownCard.baseColor
+                text: "⏻"; color: (shutdownCard.isArmed || mouse4.containsMouse) ? shutdownCard.armedColor : shutdownCard.baseColor
                 font.family: "Symbols Nerd Font"; font.pixelSize: 14; anchors.horizontalCenter: parent.horizontalCenter 
                 Behavior on color { ColorAnimation { duration: 250 } }
             }
             Text {
                 text: shutdownCard.isArmed ? "Confirm?" : "Shut Down"
-                color: shutdownCard.isArmed ? shutdownCard.armedColor : shutdownCard.baseColor
+                color: (shutdownCard.isArmed || mouse4.containsMouse) ? shutdownCard.armedColor : shutdownCard.baseColor
                 font.family: martianMono.font.family; font.pixelSize: 10; anchors.horizontalCenter: parent.horizontalCenter 
                 Behavior on color { ColorAnimation { duration: 250 } }
             }
