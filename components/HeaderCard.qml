@@ -1,7 +1,5 @@
 import QtQuick
-import Quickshell.Io
 import QtQuick.Layouts
-import Quickshell
 
 RowLayout {
 width: parent.width
@@ -67,7 +65,7 @@ RowLayout {
         width: 36
         height: 36
         radius: 9
-        color: "#5b9dff" // Fallback color
+        color: "#5b9dff" 
         border.color: "#000000"
 
         Text {

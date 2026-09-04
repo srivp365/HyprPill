@@ -1,7 +1,5 @@
-// components/PillBar.qml
 import QtQuick
 import Quickshell.Io
-import QtQuick.Layouts
 import Quickshell
 
 Rectangle {
@@ -45,7 +43,7 @@ Rectangle {
         opacity: isExpanded ? 0 : 1
         visible: opacity > 0
         
-        Behavior on opacity { NumberAnimation { duration: 50 } }
+        Behavior on opacity { NumberAnimation { duration: 100 } }
 
         
         Text { 
@@ -89,6 +87,7 @@ Rectangle {
             spacing: 15
 
             HeaderCard {}
+            MusicPlayer {}
             
         }
 

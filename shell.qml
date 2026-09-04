@@ -1,4 +1,3 @@
-// shell.qml
 import QtQuick
 import Quickshell
 import "components" 
