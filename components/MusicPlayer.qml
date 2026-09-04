@@ -5,29 +5,32 @@ import Quickshell.Services.Mpris
 Rectangle {
     id: musicCard
     width: parent.width
-    height: 70
+    height: 84
     radius: 16
-    color: "#141519"
+    color: "#000000"
     border.color: "#1F1F1F"
+    border.width: 1
 
     property var player: Mpris.players.values[0]
-
-    Column {
-        anchors.fill: parent
-        anchors.margins: 12
-        spacing: 11
+    
 
         RowLayout {
+            anchors.leftMargin: 12
+            anchors.rightMargin: 12
+            anchors.fill: parent
             width: parent.width
             spacing: 10
 
+
             // Album Art
             Rectangle {
-                width: 46
-                height: 46
-                radius: 11
+                width: 38
+                height: 38
+                // radius not applying, have to check
+                radius: 16
                 color: "#ffb454"
                 clip: true
+
 
                 Image {
                     anchors.fill: parent
@@ -45,8 +48,8 @@ Rectangle {
                     width: parent.width
                     text: player ? player.trackTitle : "No music playing"
                     color: "#e9e9ec"
-                    font.pixelSize: 12
-                    font.family: msPrint.font.family
+                    font.pixelSize: 11
+                    font.family: martianMono.font.family
                     elide: Text.ElideRight
                 }
                 Text {
@@ -54,7 +57,7 @@ Rectangle {
                     text: player ? player.trackArtist : "Open a media player"
                     color: "#8a8a90"
                     font.pixelSize: 9
-                    font.family: msPrint.font.family
+                    font.family: martianMono.font.family
                     elide: Text.ElideRight
                 }
             }
@@ -66,34 +69,37 @@ Rectangle {
                 Layout.alignment: Qt.AlignVCenter
 
                 Rectangle {
-                    width: 26; height: 26; radius: 13; color: "transparent"
-                    Text { anchors.centerIn: parent; text: "⏮"; color: "#8a8a90"; font.pixelSize: 10 }
+                    width: 22; height: 22; radius: 11; color: "transparent"
+                    Text { anchors.centerIn: parent; text: "󰒮"; color: "#8a8a90"; font.pixelSize: 13 }
                     MouseArea {
                         anchors.fill: parent
                         onClicked: if (player && player.canGoPrevious) player.previous()
+                        cursorShape: Qt.PointingHandCursor 
                     }
                 }
 
                 Rectangle {
-                    width: 30; height: 30; radius: 15; color: "#ffb454"
+                    width: 26; height: 26; radius: 13; color: "#ffb454"
                     Text { 
                         anchors.centerIn: parent
-                        text: (player && player.playbackState === MprisPlaybackState.Playing) ? "⏸" : "▶"
+                        text: (player && player.playbackState === MprisPlaybackState.Playing) ? "" : " "
                         color: "#241605"
                         font.pixelSize: 10 
                     }
                     MouseArea {
                         anchors.fill: parent
                         onClicked: if (player) player.togglePlaying()
+                        cursorShape: Qt.PointingHandCursor
                     }
                 }
 
                 Rectangle {
-                    width: 26; height: 26; radius: 13; color: "transparent"
-                    Text { anchors.centerIn: parent; text: "⏭"; color: "#8a8a90"; font.pixelSize: 10 }
+                    width: 22; height: 22; radius: 11; color: "transparent"
+                    Text { anchors.centerIn: parent; text: "󰒭"; color: "#8a8a90"; font.pixelSize: 13 }
                     MouseArea {
                         anchors.fill: parent
                         onClicked: if (player && player.canGoNext) player.next()
+                        cursorShape: Qt.PointingHandCursor
                     }
                 }
             }
@@ -101,6 +107,6 @@ Rectangle {
 
         
         }
-    }
+    
 
 

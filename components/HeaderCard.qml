@@ -3,7 +3,7 @@ import QtQuick.Layouts
 
 RowLayout {
 width: parent.width
-height: 60
+height: 44
 
 Column {
     Layout.alignment: Qt.AlignVCenter
@@ -12,21 +12,20 @@ Column {
     Text { 
         id: clockTextCC
 
-        // fallback
         text: pillBackground.time 
         color: "#cdd6f4"
-        font.pixelSize: 24
-        font.family: msPrint.font.family
+        font.pixelSize: 21
+        font.family: martianMono.font.family
+        font.weight: 500
     
     }
     Text { 
         id: dateTextCC
-
-        // fallback
+        
         text: pillBackground.date 
         color: '#a9cdd6f4'
-        font.pixelSize: 14
-        font.family: msPrint.font.family
+        font.pixelSize: 9
+        font.family: martianMono.font.family
     
     }
 }
@@ -44,8 +43,8 @@ RowLayout {
         Text {
             text: pillBackground.username
             color: "#e9e9ec"
-            font.pixelSize: 11
-            font.family: msPrint.font.family
+            font.pixelSize: 10
+            font.family: martianMono.font.family
             horizontalAlignment: Text.AlignRight
             anchors.right: parent.right
         }
@@ -53,8 +52,8 @@ RowLayout {
             id: uptimeText
             text: "up 4h 12m" 
             color: "#4ade80"
-            font.pixelSize: 9
-            font.family: msPrint.font.family
+            font.pixelSize: 8
+            font.family: martianMono.font.family
             horizontalAlignment: Text.AlignRight
             anchors.right: parent.right
         }
@@ -62,8 +61,8 @@ RowLayout {
 
         
     Rectangle {
-        width: 36
-        height: 36
+        width: 31
+        height: 31
         radius: 9
         color: "#5b9dff" 
         border.color: "#000000"
@@ -73,7 +72,7 @@ RowLayout {
             text: pillBackground.username.substring(0, 2).toUpperCase()
             color: "#ffffff"
             font.pixelSize: 12
-            font.family: msPrint.font.family
+            font.family: martianMono.font.family
             font.bold: true
         }
     }

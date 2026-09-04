@@ -16,14 +16,13 @@ PanelWindow {
     exclusiveZone: 30 
 
     width: 500
-    height: 500 
+    height: 680 
     color: "transparent"
 
     mask: Region {
         item: myPill
     }
 
-    // Call our component!
     PillBar {
         id: myPill 
         

@@ -16,8 +16,8 @@ Rectangle {
     property string username: Quickshell.env("USER") ?? "unknown"
     property bool isExpanded: mouse.hovered
     
-    width: isExpanded ? 500 : 120
-    height: isExpanded ? 500 : 40
+    width: isExpanded ? 400 : 132
+    height: isExpanded ? 630 : 36
     
     radius: isExpanded ? 25 : height / 2 
     color: "#000000" 
@@ -29,8 +29,8 @@ Rectangle {
     
 
     FontLoader {
-        id: msPrint
-        source: "../assets/fonts/MatrixSansPrint-Regular.otf"
+        id: martianMono
+        source: "../assets/fonts/MartianMono-VariableFont_wdth,wght.ttf"
     }
 
     
@@ -52,8 +52,9 @@ Rectangle {
             // fallback
             text: pillBackground.time 
             color: "#cdd6f4"
-            font.pixelSize: 14
-            font.family: msPrint.font.family
+            font.pixelSize: 12
+            font.family: martianMono.font.family
+            font.weight: 500
 
 
             Timer {
@@ -76,7 +77,7 @@ Rectangle {
     Item {
         id: controlCenterPanel
         anchors.fill: parent
-        anchors.margins: 25
+        anchors.margins: 16
 
         opacity: isExpanded ? 1 : 0
         visible: opacity > 0
@@ -84,10 +85,19 @@ Rectangle {
 
         Column {
             anchors.fill: parent
-            spacing: 15
+            spacing: 9
 
             HeaderCard {}
             MusicPlayer {}
+            Row {
+                width: parent.width - 15
+                height: 86
+                spacing: 12
+                WifiCard {}
+                BluetoothCard {}
+
+            }
+            InfoCard {}
             
         }
 
