@@ -15,8 +15,8 @@ PanelWindow {
     margins { top: 10 }
     exclusiveZone: 30 
 
-    width: 500
-    height: 680 
+    width: 600
+    height: 700 
     color: "transparent"
 
     mask: Region {

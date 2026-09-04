@@ -98,6 +98,8 @@ Rectangle {
 
             }
             InfoCard {}
+            NotificationsCard {}
+            PowerCard {}
             
         }
 
