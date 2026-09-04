@@ -1,32 +1,36 @@
 import QtQuick
-import Quickshell
 import "components" 
+import Quickshell
+import Quickshell.Services.Pipewire
+import Quickshell.Wayland
+import QtQuick.Layouts
 
-PanelWindow {
-    id: barWindow
+ShellRoot {
+    PanelWindow {
+        id: barWindow    
+        anchors {
+            bottom: false
+            top: true
+            right: false
+            left: false
 
-    anchors {
-        top: true
-        bottom: false
-        left: false
-        right: false
-    }
+        }    
+        margins { top: 10 }
+        exclusiveZone: 30     
+        width: 600
+        height: 700 
 
-    margins { top: 10 }
-    exclusiveZone: 30 
 
-    width: 600
-    height: 700 
-    color: "transparent"
-
-    mask: Region {
-        item: myPill
-    }
-
-    PillBar {
-        id: myPill 
+        color: "transparent" 
+        mask: Region {
+            item: myPill
+        }    
         
-        anchors.top: parent.top
-        anchors.horizontalCenter: parent.horizontalCenter
-    }
+        PillBar {
+            id: myPill 
+            anchors.top: parent.top
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+
+    }    
 }
