@@ -18,7 +18,7 @@ RowLayout {
         
         property bool isArmed: false
         property color baseColor: "#8a8a90"
-        property color armedColor: "#5b9dff" 
+        property color armedColor: "#ffb454" 
         
         color: isArmed ? Qt.rgba(armedColor.r, armedColor.g, armedColor.b, 0.15) : "#000000"
         border.color: isArmed ? armedColor : "#1F1F1F"
@@ -28,7 +28,7 @@ RowLayout {
 
         Process {
             id: lockProcess
-            command: ["sh", "-c", "hyprlock & systemctl suspend"]
+            command: ["systemctl", "suspend"]
         }
 
         Timer {
@@ -69,12 +69,12 @@ RowLayout {
         Column {
             anchors.centerIn: parent; spacing: 4 
             Text {
-                text: ""; color: lockCard.isArmed ? lockCard.armedColor : lockCard.baseColor
+                text: ""; color: lockCard.isArmed ? lockCard.armedColor : lockCard.baseColor
                 font.family: "Symbols Nerd Font"; font.pixelSize: 14; anchors.horizontalCenter: parent.horizontalCenter 
                 Behavior on color { ColorAnimation { duration: 250 } }
             }
             Text {
-                text: lockCard.isArmed ? "Confirm?" : "Lock"
+                text: lockCard.isArmed ? "Confirm?" : "Sleep"
                 color: lockCard.isArmed ? lockCard.armedColor : lockCard.baseColor
                 font.family: martianMono.font.family; font.pixelSize: 10; anchors.horizontalCenter: parent.horizontalCenter 
                 Behavior on color { ColorAnimation { duration: 250 } }
@@ -93,7 +93,7 @@ RowLayout {
         
         property bool isArmed: false
         property color baseColor: "#8a8a90"
-        property color armedColor: "#ffb454" 
+        property color armedColor: "#5b9dff" 
         
         color: isArmed ? Qt.rgba(armedColor.r, armedColor.g, armedColor.b, 0.15) : "#000000"
         border.color: isArmed ? armedColor : "#1F1F1F"
