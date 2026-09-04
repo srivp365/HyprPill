@@ -27,7 +27,7 @@ Rectangle {
                 width: 38
                 height: 38
                 // radius not applying, have to check
-                radius: 16
+                radius: 10
                 color: "#ffb454"
                 clip: true
 
