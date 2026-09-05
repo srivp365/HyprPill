@@ -54,7 +54,9 @@ Rectangle {
                 onClicked: {
 
                 }
+
                 hoverEnabled:  true
+                
                 onEntered: {
                   clearAllText.color = "#ffffff"
                 }
