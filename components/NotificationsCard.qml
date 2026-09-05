@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
+import Quickshell.Io
 
 Rectangle {
     id: notifsCard
@@ -35,11 +36,34 @@ Rectangle {
                 Layout.fillWidth: true
             }
 
+
+            Process {
+              id: clearAllProcess
+              command : ["makoctl", "dismiss -a"]  
+            }
+
             Text {
+                id: clearAllText
                 text: "clear all"
                 color: "#8a8a90"
                 font.family: martianMono.font.family
                 font.pixelSize: 9
+
+                MouseArea {
+                anchors.fill: parent
+                onClicked: {
+
+                }
+                hoverEnabled:  true
+                onEntered: {
+                  clearAllText.color = "#ffffff"
+                }
+                onExited: {
+                  clearAllText.color = "#8a8a90"
+                }
+                cursorShape: Qt.PointingHandCursor 
+              }
+
             }
         
         }
